@@ -20,26 +20,26 @@ public class CourseService {
 	@Autowired
 	CourseRepository courseRepository;
 	
-	@PostMapping("/course")
+	@PostMapping("/api/course")
 	public List<Course> createCourse(
 			@RequestBody Course course) {
 		myCourses.add(course);
 		return myCourses;
 	}
 	
-	@GetMapping("/course")
+	@GetMapping("/api/course")
 	public List<Course> findAllCourse() {
 		return (List<Course>) courseRepository.findAll();
 	}
 	
-	@GetMapping("/course/{courseId}")
+	@GetMapping("/api/course/{courseId}")
 	public Course findCourseById(
 			@PathVariable("courseId") int id
 			) {
 		return courseRepository.findById(id).get();
 	}
 	
-	@GetMapping("/myCourse")
+	@GetMapping("/api/myCourse")
 	public Course getMeACourse() {
 		Course course = new Course();
 		course.setId(123);
