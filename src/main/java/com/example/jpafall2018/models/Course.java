@@ -33,5 +33,9 @@ public class Course {
 	}
 	public void setAuthor(Faculty author) {
 		this.author = author;
-	}
+	     if(!author.getAuthoredCourses()
+	    		 .contains(this)) {
+    		         author.getAuthoredCourses().add(this);
+    		 }
+     }
 }

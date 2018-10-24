@@ -3,6 +3,7 @@ package com.example.jpafall2018.models;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -10,8 +11,15 @@ public class Faculty extends User {
   private String office;
   private Boolean tenure;
 
-  @OneToMany(mappedBy="author")
+  @OneToMany(mappedBy="author", fetch=FetchType.EAGER)
   private List<Course> authoredCourses;
+  
+  public void authoredCourse(Course course) {
+     this.authoredCourses.add(course);
+     if(course.getAuthor() != this)
+        course.setAuthor(this);
+  }
+  
   
   public Faculty() {}
 	public Faculty(String u, String p, String f, String l, String office, boolean tenured) {
