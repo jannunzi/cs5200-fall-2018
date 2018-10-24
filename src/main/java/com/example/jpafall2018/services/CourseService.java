@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.jpafall2018.models.Course;
+import com.example.jpafall2018.models.Faculty;
 import com.example.jpafall2018.repositories.CourseRepository;
+import com.example.jpafall2018.repositories.FacultyRepository;
 
 @RestController
 public class CourseService {
@@ -22,6 +24,16 @@ public class CourseService {
 	@Autowired
 	CourseRepository courseRepository;
 	
+	@Autowired
+	FacultyRepository fr;
+
+	@GetMapping("/api/faculty/{fid}/course")
+	public List<Course> findCoursesForFaculty(
+			@PathVariable("fid") int fid) {
+		Faculty faculty = fr.findById(fid).get();
+		return faculty.getAuthoredCourses();
+	}
+
 	@PostMapping("/api/course")
 	public List<Course> createCourse(
 			@RequestBody Course course) {

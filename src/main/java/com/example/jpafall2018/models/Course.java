@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Course {
 	@Id
@@ -14,6 +16,7 @@ public class Course {
 	private String title;
 	
 	@ManyToOne
+	@JsonIgnore
 	private Faculty author;
 	
 	public int getId() {
