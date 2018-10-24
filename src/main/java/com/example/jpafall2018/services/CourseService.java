@@ -34,6 +34,17 @@ public class CourseService {
 		return faculty.getAuthoredCourses();
 	}
 
+	@PutMapping("/api/faculty/{fid}/course/{cid}")
+	public List<Course> addCourseToFaculty(
+			@PathVariable("fid") int fid,
+			@PathVariable("cid") int cid) {
+		Faculty faculty = fr.findById(fid).get();
+		Course course = courseRepository.findById(cid).get();
+		course.setAuthor(faculty);
+		courseRepository.save(course);
+		return faculty.getAuthoredCourses();
+	}
+
 	@PostMapping("/api/course")
 	public List<Course> createCourse(
 			@RequestBody Course course) {
