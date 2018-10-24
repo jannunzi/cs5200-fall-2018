@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,6 +40,16 @@ public class CourseService {
 		return courseRepository.findById(id).get();
 	}
 	
+	@PutMapping("/api/course/{courseId}")
+	public List<Course> updateCourse(
+			@PathVariable("courseId") int courseId,
+			@RequestBody Course newCourse) {
+		Course course = courseRepository.findById(courseId).get();
+		course.setTitle(newCourse.getTitle());
+		courseRepository.save(course);
+		return (List<Course>) courseRepository.findAll();
+	}
+
 	@GetMapping("/api/myCourse")
 	public Course getMeACourse() {
 		Course course = new Course();
