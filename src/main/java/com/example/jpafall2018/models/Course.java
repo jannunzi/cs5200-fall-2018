@@ -16,6 +16,13 @@ public class Course {
 	@ManyToOne
 	private Faculty author;
 	
+	public Course(int id, String title) {
+		this.id = id;
+		this.title = title;
+	}
+	public Course() {
+		// TODO Auto-generated constructor stub
+	}
 	public int getId() {
 		return id;
 	}
@@ -38,4 +45,7 @@ public class Course {
     		         author.getAuthoredCourses().add(this);
     		 }
      }
+	public String toString() {
+		return "\t" + id + ", " + title;
+	}
 }

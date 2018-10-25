@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
+import com.example.jpafall2018.dao.FacultyDao;
+
 @Entity
 public class Faculty extends User {
   private String office;
@@ -50,6 +52,13 @@ public class Faculty extends User {
 		this.tenure = tenure;
 	}
 	public List<Course> getAuthoredCourses() {
+		return authoredCourses;
+	}
+	public List<Course> getAuthoredCoursesLazy() {
+		if(authoredCourses == null) {
+			FacultyDao dao = FacultyDao.getInstance();
+			authoredCourses = dao.getAuthoredCourses(this.id);
+		}
 		return authoredCourses;
 	}
 	public void setAuthoredCourses(List<Course> authoredCourses) {
