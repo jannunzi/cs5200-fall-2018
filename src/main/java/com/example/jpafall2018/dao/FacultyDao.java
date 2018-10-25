@@ -12,25 +12,23 @@ import com.example.jpafall2018.models.Faculty;
 
 public class FacultyDao {
 	private static FacultyDao instance = null;
+	private static ConnectionPool connectionPool = null;
 	private FacultyDao() {}
 	private static FacultyDao getInstance() {
 		if(instance == null) {
 			instance = new FacultyDao();
+			connectionPool = ConnectionPool.getInstance();
 		}
 		return instance;
 	}
 	Connection connection = null;
 	Statement statement = null;
 	ResultSet results = null;
-	private final String DB_URL = "jdbc:mysql://localhost:3306/jpa_fall_2018";
-	private final String USERNAME = "cs5200";
-	private final String PASSWORD = "cs5200";
 	private final String FIND_ALL_FACULTY = "SELECT * FROM USER WHERE dtype='Faculty'";
 	public List<Faculty> findAllFaculty() {
 		List<Faculty> facultyList = new ArrayList<Faculty>();
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+			connection = connectionPool.getConnection();
 			statement = connection.createStatement();
 			results = statement.executeQuery(FIND_ALL_FACULTY);
 			while(results.next()) {
@@ -42,9 +40,6 @@ public class FacultyDao {
 				Faculty faculty = new Faculty(id, firstName, lastName, office, tenure);
 				facultyList.add(faculty);
 			}
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

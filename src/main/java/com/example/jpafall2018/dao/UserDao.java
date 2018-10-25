@@ -14,25 +14,23 @@ import com.example.jpafall2018.models.User;
 
 public class UserDao {
 	private static UserDao instance = null;
+	private static ConnectionPool connectionPool = null;
 	private UserDao() {}
 	private static UserDao getInstance() {
 		if(instance == null) {
 			instance = new UserDao();
+			connectionPool = ConnectionPool.getInstance();
 		}
 		return instance;
 	}
 	Connection connection = null;
 	Statement statement = null;
 	ResultSet results = null;
-	private final String DB_URL = "jdbc:mysql://localhost:3306/jpa_fall_2018";
-	private final String USERNAME = "cs5200";
-	private final String PASSWORD = "cs5200";
 	private final String FIND_ALL_USERS = "SELECT * FROM USER";
 	public List<User> findAllUsers() {
 		List<User> userList = new ArrayList<User>();
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+			connection = connectionPool.getConnection();
 			statement = connection.createStatement();
 			results = statement.executeQuery(FIND_ALL_USERS);
 			while(results.next()) {
@@ -55,9 +53,6 @@ public class UserDao {
 					userList.add(user);
 				}
 			}
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
