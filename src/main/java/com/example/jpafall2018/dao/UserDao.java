@@ -1,4 +1,4 @@
-package com.example.jpafall2018;
+package com.example.jpafall2018.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
