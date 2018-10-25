@@ -57,6 +57,7 @@ public class UserDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		connectionPool.closeConnection();
 		return userList;
 	}
 	public static void main(String[] args) {
