@@ -20,7 +20,14 @@ public class Student extends User {
 	        "SECTION_ID", referencedColumnName="ID"))
 	  private List<Section> enrolledSections;
 
-	  public void enrollSection(Section section) {
+	public Student(int id, String firstName, String lastName, int graduatingYear, Boolean hasGrant) {
+		super(id, firstName, lastName);
+		this.graduatingYear = graduatingYear;
+		this.hasGrant = hasGrant.booleanValue();
+	}
+
+
+	public void enrollSection(Section section) {
 		   this.enrolledSections.add(section);
 		   if(!section.getEnrolledStudents().contains(this))
 		       section.getEnrolledStudents().add(this);
@@ -48,5 +55,9 @@ public class Student extends User {
 
 	public void setEnrolledSections(List<Section> enrolledSections) {
 		this.enrolledSections = enrolledSections;
+	}
+	
+	public String toString() {
+		return id + ", " + firstName + ", " + lastName + ", " + graduatingYear + ", " + hasGrant;
 	}
 }
