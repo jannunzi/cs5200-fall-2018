@@ -9,17 +9,22 @@ import javax.persistence.Id;
 public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
-    private String username;
-    private String password;
-    private String firstName;
-    private String lastName;
+	protected int id;
+	protected String username;
+	protected String password;
+	protected String firstName;
+	protected String lastName;
     public User() {}
 	public User(String username, String password, String first, String last) {
 		this.username = username;
 		this.password = password;
 		this.firstName = first;
 		this.lastName  = last;
+	}
+	public User(int id, String firstName, String lastName) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
 	}
 	public String getUsername() {
 		return username;

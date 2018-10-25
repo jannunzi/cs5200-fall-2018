@@ -27,6 +27,16 @@ public class Faculty extends User {
 		this.office = office;
 		this.tenure = tenured;
 	}
+	public Faculty(int id, String firstName, String lastName, String office, Boolean tenure) {
+		super(id, firstName, lastName);
+		this.office = office;
+		this.tenure = tenure;
+	}
+	public String toString() {
+		return id + ", " + firstName + ", " + lastName + ", " + office + ", " + tenure;
+	}
+
+
 	public String getOffice() {
 		return office;
 	}
